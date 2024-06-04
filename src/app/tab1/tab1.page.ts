@@ -8,5 +8,13 @@ import { Component } from '@angular/core';
 export class Tab1Page {
 
   constructor() {}
+  
+  noticia = {
+    titulo:'titulo',
+    subtitulo:'subtitulo',
+    desc:'descriçao',
+    imagem:'https://ionicframework.com/docs/img/demos/card-media.png'
+  }
+
 
 }
