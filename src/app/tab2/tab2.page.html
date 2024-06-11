@@ -1,15 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      <img src="assets/images/my-image2.png" alt="" class="toolbar-logo">
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <div class="flex-center">
-    <h1>{{mensagem}}</h1>
-    <ion-card>
+    <h1>{{saudacao}}</h1>
+    <ion-card class="weatherCard">
       <ion-card-header>
         <ion-grid>
           <ion-row>
@@ -17,26 +17,53 @@
               <ion-grid>
                 <ion-row>
                   <ion-col size="12" class="state-city">
-                    <small>Estado, Cidade</small>
+                    <small><ion-icon name="location-outline" color="danger"></ion-icon> {{city}}, {{state}}</small>
                   </ion-col>
                 </ion-row>
                 <ion-row>
                   <ion-col size="12">
-                    <h1 class="temperature">25°C</h1>
+                    <h1 class="temperature">{{temperature}} {{mensagem}}</h1>
                   </ion-col>
                   <ion-col size="12">
-                    <small class="rain-probability">10% de chuva</small>
+                    <small class="rain-probability"><ion-icon name="umbrella-outline" color="primary"></ion-icon> {{rainProbability}}</small>
+                  </ion-col>
+                  <ion-col size="12">
+                    <small class="rain-probability"><ion-icon name="paper-plane-outline" color="primary" ></ion-icon> {{windSpeed}}</small>
                   </ion-col>
                 </ion-row>
               </ion-grid>
             </ion-col>
             <ion-col size="3" class="icon-time" text-end>
-              <ion-icon name="cloudy"></ion-icon>
-              <h3 class="current-time">15:00</h3>
+              <!-- <img [src]="iconName" alt="Weather Icon"> /para usar o icone da api-->
+              <ion-icon [name]="iconName"></ion-icon>
+              <h3 class="current-time">{{currentDate}} {{currentTime}}</h3>
             </ion-col>
           </ion-row>
         </ion-grid>
       </ion-card-header>
     </ion-card>
+
+    <div class="news-section-title">
+      <h2>Aqui estão as notícias mais populares do dia de hoje!</h2>
+    </div>
+
+    <ion-card *ngFor="let article of topNews">
+      <img alt="Silhouette of mountains" [src]="article.urlToImage" />
+      <ion-card-header>
+        <ion-card-title>{{ article.title }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ article.description }}</p>
+        <div class="ion-text-center">
+          <ion-button fill="outline" size="small" href="{{ article.url }}" target="_blank" style="--border-radius: 30px; --color: orangered; --border-color: orangered">Leia mais</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-refresher slot="fixed" (ionRefresh)="refreshNews($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
   </div>
+  
 </ion-content>
